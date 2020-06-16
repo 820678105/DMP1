@@ -28,10 +28,13 @@ object GitTest {
     //过滤数据,在切分的时候，如果有字符相连或相连过场，
     // 程序使用split切分时，会默认把它们当成一个字符处理，同时过滤的数据太多，那么
     //在split中加入总的切分长度即可(-1)
+    import TypeUtil1.str2Int
+    import TypeUtil2.str2Double
+    import TypeUtil3.str2Boolean
     val logRDD= lines.filter(t => t.split(",", t.length).length >= 85)
       .map(line => {
         val arr: Array[String] = line.split(",", -1)
-          new Log(arr)
+          new Log("1","2","3","4","5","true")
       }
       )
     import spark.implicits._
@@ -41,11 +44,9 @@ object GitTest {
   }
 }
 //普通类创建DF，需要继承product和serializable，建议使用样例类
-class Log(arr:Array[String]) extends Product with Serializable {
+class Log(arr:String,arr1:Int,arr2:Double,arr3:Int,arr4:Double,arr5:Boolean) extends Product with Serializable {
   //设置标识和属性的关系
-  override def productElement(n: Int): Any = n match {
-
-  }
+  override def productElement(n: Int): Any = n
   //总共多少成员属性
   override def productArity: Int = 85
   //判断当前类型和传入类型是否一致
